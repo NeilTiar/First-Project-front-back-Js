@@ -10,7 +10,8 @@
 
 html,
 body {
-    height: 100%;
+ 
+    height: max-content;
     width: 100%;
     margin: 0
 }
@@ -256,7 +257,7 @@ filter: drop-shadow(8px 10px 4px black)
 
     animation: fade-in 1.5s forwards, pulse 4s infinite;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 1);
-    width: max-content;
+    width: 30rem;
     border: 1px solid rgb(247, 244, 244);
     border-radius: 0.8rem;
     padding: 1rem 0 1rem 0;
@@ -265,17 +266,14 @@ filter: drop-shadow(8px 10px 4px black)
 }
 
  .hidden{
+    margin: 0;
     pointer-events: none;
     inset:0;
-    display:block;
+    display: none;  /* => ici display none permet d'empecher d'alloué de l'espace à un élément que l'on souhaite caché*/
     animation: fade-out 0.8s forwards;
-    
+   
 }
 
-.forms{
-
-    height:0rem
-}
 
 @keyframes pulse {
     0% {
@@ -528,7 +526,15 @@ h1.title-card {
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;
+  
+    padding:0
 }
+
+.Forms{
+    margin:0;
+   
+}
+
 
 .card {
     margin: 3rem auto 2rem auto;
@@ -618,6 +624,8 @@ h2 {
     text-shadow: #000 10px 10px 10px;
 }
 
+
+
 #passwordForm {
     margin: 8rem 0 0 1.5rem;
     border: 1px solid rgb(255, 254, 254);
@@ -631,6 +639,7 @@ h2 {
 #passwordForm :nth-child(4) {
     margin-top: 2.5rem;
 }
+
 
 #loginForm :nth-child(4) {
     margin-top: 2.5rem;
@@ -699,11 +708,20 @@ a.acount-img {
 }
 
 .conexion-msg {
+    font-size: 1.2rem;
     position: relative;
-    top:-3rem;
+    top: -1;
     color: aliceblue;
     font-family: var(--pokemon);
     margin-right: 1.2rem;
     text-shadow: #000 10px 10px 10px;
 
+}
+
+
+.description[down]{
+    
+    filter:blur(2.5px);
+    
+  
 }

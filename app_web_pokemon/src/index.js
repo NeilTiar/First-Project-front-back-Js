@@ -1,47 +1,79 @@
 
 
+const log = console.log;
+
+const form = document.querySelector('.form')
+	const signup = document.querySelector('#signUp')
+	const iconCompte = document.querySelector(".icon-compte")
+	const signupForm = document.querySelector("#passwordForm")
+	const loginForm = document.querySelector("#loginForm")
+	const description = document.querySelector(".description")
+    const forms = document.querySelector('.forms')
+    const navBar = document.querySelector('nav')
+    
+	
+
 //DomContentLoaded permet d'agir au chargement de l'app sur le navigateur
 window.addEventListener("DOMContentLoaded", () => {
 
-
-	const iconCompte = document.querySelector(".icon-compte");
-	const signupForm = document.querySelector("#passwordForm")
-	const loginForm = document.querySelector("#loginForm")
-
-	console.log(signupForm)
+  
 	loginForm.classList.add('hidden')// ajout de class hidden avec un diplay :none(css) au loginForm pour le cacher form au chargement du dom
 	signupForm.classList.add('hidden')
+    
+	
+   signup.addEventListener('click',displaySignupForm)
 
-
-	const signup = document.querySelector('#signUp')
+   iconCompte.addEventListener('click',displayLoginForm)
 
 	//ci dessous ,un ecouteur d'evenement au click sur l'icon compte
 	//afin de lancer la fonction handleLoginForm 
-	iconCompte.addEventListener("click", displayLoginForm)
-	signup.addEventListener("click", displaySignupForm)
+
+
+})
+  
+
+
+	//iconCompte.addEventListener("click", displayLoginForm)
+	
 
 
 	//la fonction ci dessous permet au click d'alterner entre les class 'hidden' et loginForm 
 	function displayLoginForm() {
+
+
+		if(signupForm.classList.contains('form hidden')){
+			description.toggleAttribute('down') 
+			}else{
+			log('do nothing !!')
+			}
 		
+		
+	    description.toggleAttribute('down')//permet d'ajouter un attribut 'down' à la class 'decription' l'orsquel'on fait
+       //apparaitre le loginForm
+
 		loginForm.classList.toggle('hidden'); //au click on bascule sur la class css
 		//'hidden', comme cette class est defini par defaut ,le toggle vas retirer cette class
 		//pour laisser apparaitre le loginForm a l'ecran 
-
 		
-
 		console.log('login')
 
 	}
 
 	function displaySignupForm() {
 
+		if(loginForm.classList.contains('form hidden')){
+		description.toggleAttribute('down') 
+		}else{
+		log('do nothing !!')
+		}
+
+
 		signupForm.classList.toggle('hidden'); //au click on bascule sur la class css
 		//'hidden', comme cette class est defini par defaut ,le toggle vas retirer cette class
 		//pour laisser apparaitre le loginForm a l'ecran 
 
 		//signupForm.setAttribute('hidden',"");
-		
+	
 		console.log('signUpForm')
 	}
 
@@ -49,13 +81,13 @@ window.addEventListener("DOMContentLoaded", () => {
 //ci desous permet au chargement de la page, d'appliquer la fonction handleFormSubmit en cas d'envoye de formulaire 
 document.addEventListener('submit',handleFormSubmit);
 
-}) 
+
+
 
 
 const inputUser = document.querySelector('input#username'); //variable pour cibler l'input username afin de recuperer le username et ainsi aficher un message de bienvenu 
 
 //form && form2.addEventListener('submit', handleFormSubmit); // un ecouteur d'evenement pour indiquer l'utilisation de la fonction "handleFormSubmit" en cas de submit
-
 
 
 
@@ -88,14 +120,14 @@ async function handleFormSubmit(event) { //fonction asynchrone prenant en parame
 		} catch (error) {
 			const message = "oui c'est ici catch (error)"
 			console.error(message, error.message);
-
+            throw new Error (error)
 		}
 
 	}
 
 	const input = document.querySelector('input');
 	const usernameInput = document.querySelector('#username2')
-    const loginForm = document.querySelector('.form')
+    const loginForm = document.querySelector('#loginForm')
 
 
 	if ( loginForm && input.value < 1 ) {
@@ -121,18 +153,11 @@ function setErrorFor(input, message) {
 	const form = input;
 	const displayMessage = document.querySelector('.error-message');
 	displayMessage.textContent = message; // !! textContent permet d'ajouter une chaine de caractere dans un element html 
-	console.log(form);
-
-	console.log(message);
+	
 }
 
-async function postFormDataAsJson({ url, formData, responseData }) { //fonction prenant en patametre un url() et un formulaire , celle ci est destiné à envoyer les donnés à la BDD au format Json.
-	const form = this.form;
-
-	if (form) {
-		console.log('this form :', form)
-	}
-
+async function postFormDataAsJson({ url, formData}) { //fonction prenant en patametre un url() et un formulaire , celle ci est destiné à envoyer les donnés à la BDD au format Json.
+	
 
 	// ci dessous nous ne pouvont pas passer l'instance de formData directement à fetch ,car cela formatera autamatiquement la requette du body en tant que
 	// "multipart" et definira par la même occasion  le header en multipart/formdata or le format adapté pour post via fetch est application/json.
@@ -162,6 +187,9 @@ async function postFormDataAsJson({ url, formData, responseData }) { //fonction 
 	const response = await fetch(url, fetchOptions) // renvoi une promise de fetch avec en parametre l'url ,ainsi que la variable fetchOptions représentant les parametres contenu dans la variable du même nom.
 	const inputPassword = document.querySelector('input#password');
 	const msgErrPassword = document.querySelector(".error-message2")
+	const description = document.querySelector('.description')
+	
+	
 
 
 	/*switch(inputPassword.value ){
@@ -186,11 +214,15 @@ async function postFormDataAsJson({ url, formData, responseData }) { //fonction 
 		const hiddenConexionTxt = conexionTxt.classList.add('hidden')
         const username = document.querySelector('#usernameLog')
 		const msgConexion = document.querySelector('.conexion-msg');
+		
 		msgConexion.textContent = `welcome , ${username.value}`;
         msgConexion ? hiddenLoginForm && hiddenConexionTxt : null
 
-
 	}
+
+	
+
+
 	return response.json(); // renvoi la reponse au format json() vers l'api. (post)
 
 
