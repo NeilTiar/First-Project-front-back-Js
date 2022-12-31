@@ -39,29 +39,27 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	//la fonction ci dessous permet au click d'alterner entre les class 'hidden' et loginForm 
 	function displayLoginForm() {
-
-
-		if(signupForm.classList.contains('form hidden')){
-			description.toggleAttribute('down') 
-			}else{
-			log('do nothing !!')
-			}
-		
-		
-	    description.toggleAttribute('down')//permet d'ajouter un attribut 'down' à la class 'decription' l'orsquel'on fait
-       //apparaitre le loginForm
-
+        
 		loginForm.classList.toggle('hidden'); //au click on bascule sur la class css
 		//'hidden', comme cette class est defini par defaut ,le toggle vas retirer cette class
 		//pour laisser apparaitre le loginForm a l'ecran 
+
+		const hiddenLoginForm = loginForm.classList.contains('hidden')
+        const descriptioDown = description.toggleAttribute('down')
+
+
+		hiddenLoginForm?descriptioDown:null
+			
 		
+		
+	    
 		console.log('login')
 
 	}
 
 	function displaySignupForm() {
 
-		if(loginForm.classList.contains('form hidden')){
+		if(signupForm.classList.contains('hidden')){
 		description.toggleAttribute('down') 
 		}else{
 		log('do nothing !!')
