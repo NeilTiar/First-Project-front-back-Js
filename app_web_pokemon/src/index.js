@@ -48,7 +48,9 @@ window.addEventListener("DOMContentLoaded", () => {
         const descriptioDown = description.toggleAttribute('down')
 
 
-		hiddenLoginForm?descriptioDown:null
+      //ternaire meilleur comportement avec varible => loginForm.classList.contains('hidden')?description.toggleAttribute('down'):null à éviter !!
+
+		hiddenLoginForm?descriptioDown:null 
 			
 		
 		
