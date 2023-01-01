@@ -11,6 +11,7 @@ const items = [2, 4, 6, 12]
 //l'avantage etant de simplifier l'utilisation d'une fonction afin de la rendre utilisable (* et personailsable ) sans avoir a declarer des fonctions comme ci dessous :
 function mutiplyArrayBy2() {
     return items.map(item => multiply(item, 2))
+    
 }
 
 
@@ -23,10 +24,15 @@ function multiply(a, b) {
 }
 
 
+
+
+
 //cette fonction permet d'additionner des chiffres ( ou nombres ) 
 function addition(a, b) {
     return a + b
 }
+
+
 
 //cette fonction permet de determiner 
 function curry(fn) { // fn correspond à la fonction utilisé ( multiply ou addition )
@@ -37,13 +43,17 @@ function curry(fn) { // fn correspond à la fonction utilisé ( multiply ou addi
     }
 }
 
+
+console.log(items.map(curry(addition)(15)))  
+//             (a)           (fn)     (b)
+
+
 function division(a, b) {
     return b / a
 }
 
-//console.log("curry:", curry)
 //console.log(items.map(curry(addition)(15)))   //ici curry est un intermédiare qui permet d'appliquer une fonction 
-//item.map = (a)      (fn)    (b)
+
 
 
 
