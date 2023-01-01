@@ -82,7 +82,7 @@ function curryToDetermineABaseToArray(fn) {
     }
 }
 //          items2 = (b)                   (10)=(a)  dans la fonction ci dessus (curryRight(fn)) 
-//console.log(items2.map(curryRight(parseInt)(10)))// ici (10) correspond a la base decimale (base commune pour les chiffres et les nombres)
+console.log(items2.map(curryToDetermineABaseToArray(parseInt)(10)))// ici (10) correspond a la base decimale (base commune pour les chiffres et les nombres)
 //la base binaire correspond à (2) => resultat possible 0,1 ou NaN
 //la base hexadecimale à (16) => resultat possible 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F ou NaN
 
