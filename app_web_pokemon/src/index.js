@@ -17,7 +17,6 @@ const navBar = document.querySelector('nav')
 window.addEventListener("DOMContentLoaded", () => {
 
 
-
 	loginForm.classList.add('hidden')// ajout de class hidden avec un diplay :none(css) au loginForm pour le cacher form au chargement du dom
 	signupForm.classList.add('hidden')
 
@@ -28,9 +27,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	//ci dessous ,un ecouteur d'evenement au click sur l'icon compte
 	//afin de lancer la fonction handleLoginForm 
-
-
-
 
 })
 
@@ -46,10 +42,6 @@ function displayLoginForm() {
 	//'hidden', comme cette class est defini par defaut ,le toggle vas retirer cette class
 	//pour laisser apparaitre le loginForm a l'ecran 
 
-	//ternaire meilleur comportement avec varible => loginForm.classList.contains('hidden')?description.toggleAttribute('down'):null à éviter !!
-
-	const hiddenLoginForm = loginForm.classList.contains('hidden')
-	const hiddenSignupForm = signupForm.classList.contains('hidden')
 
 
 	handleDisplayBlurWithForm()
@@ -71,41 +63,34 @@ function displaySignupForm() {
 
 
 
+function handleDisplayBlurWithForms() {
 
-
-
-function handleDisplayBlurWithForm() {
-
-//cette fonction renvoie tru seulement si les 2 formulaire ont la classList 'form hidden'
-//à cette condition on enleve l'attibu ('down') qui permet l'effet  blur pour .description 
+	//cette fonction renvoie true seulement si les 2 formulaires ont la classList 'form hidden'
+	//à cette condition on enleve l'attibu ('down') qui permet l'effet  blur pour .description 
 
 	const hiddenLoginForm = loginForm.classList.contains('hidden')
 	const hiddenSignupForm = signupForm.classList.contains('hidden')
 	const descriptionDown = description.getAttribute('down')
 
 
-	if ( loginForm.classList == 'form hidden' && signupForm.classList == 'form hidden' ) {
 
-		description.removeAttribute('down')
+	if (loginForm.classList == 'form hidden' && signupForm.classList == 'form hidden') {
+
+		description.removeAttribute('down')  //removeAttribute ,setAttribute et get Attribute ne fonctionnent qu'avec un HTMLelement
 		console.log('no form on display')
-		
+
 	} else { //autrement on active l'effet blur sur description 
-		
+
 		log('form does appear')
 
-		description.setAttribute("down","")
+		description.setAttribute("down", "")
 	}
-
-	
 
 }
 
 
-
 //ci desous permet au chargement de la page, d'appliquer la fonction handleFormSubmit en cas d'envoye de formulaire 
 document.addEventListener('submit', handleFormSubmit);
-
-
 
 
 
