@@ -3,83 +3,107 @@
 const log = console.log;
 
 const form = document.querySelector('.form')
-	const signup = document.querySelector('#signUp')
-	const iconCompte = document.querySelector(".icon-compte")
-	const signupForm = document.querySelector("#passwordForm")
-	const loginForm = document.querySelector("#loginForm")
-	const description = document.querySelector(".description")
-    const forms = document.querySelector('.forms')
-    const navBar = document.querySelector('nav')
-    
-	
+const signup = document.querySelector('#signUp')
+const iconCompte = document.querySelector(".icon-compte")
+const signupForm = document.querySelector("#passwordForm")
+const loginForm = document.querySelector("#loginForm")
+const description = document.querySelector(".description")
+const forms = document.querySelector('.forms')
+const navBar = document.querySelector('nav')
+
+
 
 //DomContentLoaded permet d'agir au chargement de l'app sur le navigateur
 window.addEventListener("DOMContentLoaded", () => {
 
-  
+
+
 	loginForm.classList.add('hidden')// ajout de class hidden avec un diplay :none(css) au loginForm pour le cacher form au chargement du dom
 	signupForm.classList.add('hidden')
-    
-	
-   signup.addEventListener('click',displaySignupForm)
 
-   iconCompte.addEventListener('click',displayLoginForm)
+
+	signup.addEventListener('click', displaySignupForm)
+
+	iconCompte.addEventListener('click', displayLoginForm)
 
 	//ci dessous ,un ecouteur d'evenement au click sur l'icon compte
 	//afin de lancer la fonction handleLoginForm 
 
 
+
+
 })
-  
 
 
-	//iconCompte.addEventListener("click", displayLoginForm)
-	
+//iconCompte.addEventListener("click", displayLoginForm)
 
 
-	//la fonction ci dessous permet au click d'alterner entre les class 'hidden' et loginForm 
-	function displayLoginForm() {
-        
-		loginForm.classList.toggle('hidden'); //au click on bascule sur la class css
-		//'hidden', comme cette class est defini par defaut ,le toggle vas retirer cette class
-		//pour laisser apparaitre le loginForm a l'ecran 
 
-		const hiddenLoginForm = loginForm.classList.contains('hidden')
-        const descriptioDown = description.toggleAttribute('down')
+//la fonction ci dessous permet au click d'alterner entre les class 'hidden' et loginForm 
+function displayLoginForm() {
+
+	loginForm.classList.toggle('hidden'); //au click on bascule sur la class css
+	//'hidden', comme cette class est defini par defaut ,le toggle vas retirer cette class
+	//pour laisser apparaitre le loginForm a l'ecran 
+
+	//ternaire meilleur comportement avec varible => loginForm.classList.contains('hidden')?description.toggleAttribute('down'):null à éviter !!
+
+	const hiddenLoginForm = loginForm.classList.contains('hidden')
+	const hiddenSignupForm = signupForm.classList.contains('hidden')
 
 
-      //ternaire meilleur comportement avec varible => loginForm.classList.contains('hidden')?description.toggleAttribute('down'):null à éviter !!
+	handleDisplayBlurWithForm()
 
-		hiddenLoginForm?descriptioDown:null 
-			
+}
+
+
+function displaySignupForm() {
+
+	signupForm.classList.toggle('hidden');
+
+	//au click on bascule sur la class css
+	//'hidden', comme cette class est defini par defaut ,le toggle vas retirer cette class au toggle
+	//pour laisser apparaitre le loginForm a l'ecran 
+
+	handleDisplayBlurWithForm()
+
+}
+
+
+
+
+
+
+function handleDisplayBlurWithForm() {
+
+//cette fonction renvoie tru seulement si les 2 formulaire ont la classList 'form hidden'
+//à cette condition on enleve l'attibu ('down') qui permet l'effet  blur pour .description 
+
+	const hiddenLoginForm = loginForm.classList.contains('hidden')
+	const hiddenSignupForm = signupForm.classList.contains('hidden')
+	const descriptionDown = description.getAttribute('down')
+
+
+	if ( loginForm.classList == 'form hidden' && signupForm.classList == 'form hidden' ) {
+
+		description.removeAttribute('down')
+		console.log('no form on display')
 		
+	} else { //autrement on active l'effet blur sur description 
 		
-	    
-		console.log('login')
+		log('form does appear')
 
+		description.setAttribute("down","")
 	}
 
-	function displaySignupForm() {
-
-		if(signupForm.classList.contains('hidden')){
-		description.toggleAttribute('down') 
-		}else{
-		log('do nothing !!')
-		}
-
-
-		signupForm.classList.toggle('hidden'); //au click on bascule sur la class css
-		//'hidden', comme cette class est defini par defaut ,le toggle vas retirer cette class
-		//pour laisser apparaitre le loginForm a l'ecran 
-
-		//signupForm.setAttribute('hidden',"");
 	
-		console.log('signUpForm')
-	}
 
-	
+}
+
+
+
 //ci desous permet au chargement de la page, d'appliquer la fonction handleFormSubmit en cas d'envoye de formulaire 
-document.addEventListener('submit',handleFormSubmit);
+document.addEventListener('submit', handleFormSubmit);
 
 
 
@@ -99,8 +123,8 @@ async function handleFormSubmit(event) { //fonction asynchrone prenant en parame
 
 		const currentForm = event.target;//permet de stocker dans cette variable le formulaire ( au format objet HTML car new FormData prend exclusivement se format en charge)  
 
-	
-		 // on indique le formulaire en utilisant event.currentTarget ,qui cible la ou un evenement est déclanché
+
+		// on indique le formulaire en utilisant event.currentTarget ,qui cible la ou un evenement est déclanché
 
 		const url = currentForm.action; // on indique l'url depuis l'atribut action de l'élément form (html)
 
@@ -120,17 +144,17 @@ async function handleFormSubmit(event) { //fonction asynchrone prenant en parame
 		} catch (error) {
 			const message = "oui c'est ici catch (error)"
 			console.error(message, error.message);
-            throw new Error (error)
+			throw new Error(error)
 		}
 
 	}
 
 	const input = document.querySelector('input');
 	const usernameInput = document.querySelector('#username2')
-    const loginForm = document.querySelector('#loginForm')
+	const loginForm = document.querySelector('#loginForm')
 
 
-	if ( loginForm && input.value < 1 ) {
+	if (loginForm && input.value < 1) {
 
 		const msgError = document.querySelector('.error-message');
 		msgError.textContent = `cannot be blank !`
@@ -153,11 +177,11 @@ function setErrorFor(input, message) {
 	const form = input;
 	const displayMessage = document.querySelector('.error-message');
 	displayMessage.textContent = message; // !! textContent permet d'ajouter une chaine de caractere dans un element html 
-	
+
 }
 
-async function postFormDataAsJson({ url, formData}) { //fonction prenant en patametre un url() et un formulaire , celle ci est destiné à envoyer les donnés à la BDD au format Json.
-	
+async function postFormDataAsJson({ url, formData }) { //fonction prenant en patametre un url() et un formulaire , celle ci est destiné à envoyer les donnés à la BDD au format Json.
+
 
 	// ci dessous nous ne pouvont pas passer l'instance de formData directement à fetch ,car cela formatera autamatiquement la requette du body en tant que
 	// "multipart" et definira par la même occasion  le header en multipart/formdata or le format adapté pour post via fetch est application/json.
@@ -188,8 +212,8 @@ async function postFormDataAsJson({ url, formData}) { //fonction prenant en pata
 	const inputPassword = document.querySelector('input#password');
 	const msgErrPassword = document.querySelector(".error-message2")
 	const description = document.querySelector('.description')
-	
-	
+
+
 
 
 	/*switch(inputPassword.value ){
@@ -212,15 +236,15 @@ async function postFormDataAsJson({ url, formData}) { //fonction prenant en pata
 		const loginForm = document.querySelector('#loginForm')
 		const hiddenLoginForm = loginForm.classList.add('hidden')
 		const hiddenConexionTxt = conexionTxt.classList.add('hidden')
-        const username = document.querySelector('#usernameLog')
+		const username = document.querySelector('#usernameLog')
 		const msgConexion = document.querySelector('.conexion-msg');
-		
+
 		msgConexion.textContent = `welcome , ${username.value}`;
-        msgConexion ? hiddenLoginForm && hiddenConexionTxt : null
+		msgConexion ? hiddenLoginForm && hiddenConexionTxt : null
 
 	}
 
-	
+
 
 
 	return response.json(); // renvoi la reponse au format json() vers l'api. (post)
