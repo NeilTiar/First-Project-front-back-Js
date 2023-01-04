@@ -44,7 +44,7 @@ function displayLoginForm() {
 
 
 
-	handleDisplayBlurWithForm()
+	handleDisplayBlurWithForms()
 
 }
 
@@ -57,7 +57,7 @@ function displaySignupForm() {
 	//'hidden', comme cette class est defini par defaut ,le toggle vas retirer cette class au toggle
 	//pour laisser apparaitre le loginForm a l'ecran 
 
-	handleDisplayBlurWithForm()
+	handleDisplayBlurWithForms()
 
 }
 
