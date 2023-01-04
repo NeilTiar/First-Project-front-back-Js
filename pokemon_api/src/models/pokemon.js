@@ -7,11 +7,14 @@ module.exports = (sequelize, DataTypes) => { //sequelize est un objet qui repres
 
    return sequelize.define('pokemon', { // la propriété define permet de declarer un nouveau model auprés de sequelize
 
+    
+
       id: {
          type: DataTypes.INTEGER,
          primaryKey: true,
-         autoIncrement: true
+         autoIncrement: true,
       },
+
 
       name: {
          type: DataTypes.STRING,
@@ -71,12 +74,31 @@ module.exports = (sequelize, DataTypes) => { //sequelize est un objet qui repres
          }
       },
 
+      author: {
+         type: DataTypes.STRING,
+         allowNull: false,
+
+         validate: {
+            len: [2, 15],
+            notEmpty: { msg: "auhor must be filled up , not empty !" },
+           
+
+            customValidator(value) {
+               
+                 if(value.length < 2 || value.length > 15 ) {
+                  throw new Error("author must contain between 2 & 15 caracteres")
+               }if(value.length == 2 ){
+                  throw new Error("author must contain at least 3 caracteres ")
+               }
+         }
+      },
+   },
       types: {
 
          type: DataTypes.STRING,
          allowNull: false,
-         
-      
+
+
          get(types) {
             //les données stockées ds la bdd (chaine de caractere unique ) ne sont pas reconnu par l'api rest (objet ou tableau) et inversement, de ce fait une configuration est requise pour des echanges fonctionnel,
             return this.getDataValue('types', types.split(','))//permet de  transformer le types de données : base de données (chaine de caractere unique) vers api-rest (objet []) 

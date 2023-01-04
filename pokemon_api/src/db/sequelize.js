@@ -91,6 +91,7 @@ const initDb = () => {
                        name: pokemon.name,
                        hp: pokemon.hp,
                        cp: pokemon.cp,
+                       author: pokemon.author,
                        picture: pokemon.picture,
                        types: pokemon.types  //.join()//  la propriété types etant une chaine de caractere en base de données ,alors que coté api rest les types sont un tableau de chaine de caractere .join() permet de generer un chaine de caractere pouvant etre sauvegarder en base de données
                                                    //pour effectuer l'operation en sens inverse string vers array ,il exist une methode split(",").cette methode été apliqué dans un premier temps mais n'est plus utile car ajout de getter et setter pour gerer ce probleme au niveau du fichier pokemon.js (models).

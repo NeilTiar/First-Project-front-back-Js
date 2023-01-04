@@ -11,16 +11,16 @@ module.exports = (app) => { // on export une fonction qui prend en parametre l'a
       Pokemon.create(req.body) // la methode findAll() retourne une promesse contenant la liste de tous les pokmemons présent dans la BDD
 
          .then(pokemon => {
-            const message = `le pokemon ${req.body.name} pokemons à bien ete crée`
+            const message = `le pokemon ${req.body.name} pokemons à bien ete créer`
             res.json({ message, data: pokemon })
          })
          .catch(error => {
           // la condition if ci dessous permet de gerer l'erreur concernant la validation du model Pokemon
 
           if(error instanceof ValidationError) {
-            return res.status(400).json({message : error.message, data : error })
+            return res.status(400).json({errors:error.message})
           }
-
+          
           const message = "le pokémon n\'a pas pu être ajouter veuillez réessayer dans quelques instants."
           res.status(500).json({message, data: error})
          })
