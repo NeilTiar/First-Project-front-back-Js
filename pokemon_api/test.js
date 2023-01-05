@@ -1,7 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 // principe de programmation fonctionnel le curying ou la curryfication : ////
-/////////////////////////////////////////////////////////////////////////////
 
+const e = require("cors");
+
+/////////////////////////////////////////////////////////////////////////////
+const log = console.log;
 
 // est un processus qui consiste à transformer une fonction qui attend plusieurs arguments, en plusieurs fonctions qui vont attendre un seul argument 
 
@@ -11,7 +14,7 @@ const items = [2, 4, 6, 12]
 //l'avantage etant de simplifier l'utilisation d'une fonction afin de la rendre utilisable (* et personailsable ) sans avoir a declarer des fonctions comme ci dessous :
 function mutiplyArrayBy2() {
     return items.map(item => multiply(item, 2))
-    
+
 }
 
 
@@ -44,7 +47,7 @@ function curry(fn) { // fn correspond à la fonction utilisé ( multiply ou addi
 }
 
 
-console.log(items.map(curry(addition)(15)))  
+console.log(items.map(curry(addition)(15)))
 //             (a)           (fn)     (b)
 
 
@@ -99,7 +102,7 @@ console.log(items2.map(curryToDetermineABaseToArray(parseInt)(10)))// ici (10) c
 const items3 = ["3ff", "9kldmkdl"] //le parseInt permet d'extraire le chiffre ou nombre seulement ci ces derniers sont placé devant les lettres :"36kjdhkjdhd" devient 36 et jjkhkhkdd45 devient NaN
 
 
-console.log("chaine de 4 fonctions :",items3.map(curryToDetermineABaseToArray(parseInt)(10)).map(multiply.bind(undefined, 2)).map(division.bind(undefined, 2)).map(addition.bind(undefined, 3)))
+console.log("chaine de 4 fonctions :", items3.map(curryToDetermineABaseToArray(parseInt)(10)).map(multiply.bind(undefined, 2)).map(division.bind(undefined, 2)).map(addition.bind(undefined, 3)))
 //ci dessus exemple de 4 chainages de fonction grâce à la methode .bind qui permet dnas ce cas precis de concerver une base 10 pour chaque functions (multiply ,division ,addition)
 
 
@@ -115,7 +118,7 @@ const Object = class Rectangle {
 
 
 
-// get ici fait reference a un getter (à aprofondir avec ce lien : https://www.youtube.com/watch?v=8fo-K7zRv0Y&ab_channel=codebubb
+    // get ici fait reference a un getter (à aprofondir avec ce lien : https://www.youtube.com/watch?v=8fo-K7zRv0Y&ab_channel=codebubb
     get calcArea() {
         return this.largeur *
             this.longeur
@@ -126,3 +129,38 @@ const rectangleArea = new Object(8, 10)
 //console.log(rectangleArea.calcArea)
 
 
+//exo dans le tableau userList ,combien les hommes gagnerait il au total si il etait augmenté de 1000€ chacu, ?
+
+const userList = [
+    { name: "jhon", gender: "M", salary: 35000 },
+    { name: "jade", gender: "F", salary: 42000},
+    { name: "joe", gender: "M", salary: 32000 },
+    { name: "jacky", gender: "F", salary: 38000 },
+]
+
+
+
+const menOnly = userList.filter(e => e.gender ==='M') //afin de creer un tableau "menOnly" avec les hommes uniquement : 
+//[
+   // { name: 'jhon', gender: 'M', salary: 35000 },
+    //{ name: 'joe', gender: 'M', salary: 32000 }
+ // ]
+
+const addOneThousandIntoSalary = menOnly.map(e=> e.salary += 1000) //afin de creer un tableau "addOneThousandIntoSalary" avec les salaires auquel on ajoute 1000€ : [ 36000, 33000 ]
+
+const allMensSalary = addOneThousandIntoSalary.reduce((total ,salary) => total + salary) //afin de creer un tableau "allMenSalary" qui prend en parametre un accumulateur "total" puis 
+//l'element courant "salary" ceci afin de calculer la somme des salaire : 69000
+
+
+log(allMensSalary)
+
+/*il est possible de chainer les boucle afin de contenir le tout avec une seule variable :
+
+const sumOfMensSalary = 
+
+userList
+.filter(e => e.gender ==='M')
+.map(e=> e.salary += 1000)
+.reduce((total ,salary) => total + salary)
+
+log(sumOfMensSalary)*/
